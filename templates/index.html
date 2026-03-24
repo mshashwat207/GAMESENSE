@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gaming Skill Predictor</title>
+  <link rel="stylesheet" href="/static/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet"/>
+</head>
+<body>
+
+  <div class="bg-grid"></div>
+
+  <!-- Countdown overlay -->
+  <div class="countdown-overlay" id="countdownOverlay">
+    <div class="countdown-num" id="countdownNum">3</div>
+    <p class="countdown-label" id="countdownLabel">Get Ready</p>
+  </div>
+
+  <!-- ── SCREEN 1: Start ── -->
+  <div class="screen active" id="screenStart">
+    <div class="wrapper">
+      <header>
+        <div class="logo-icon">🎮</div>
+        <h1>Gaming Skill <span>Predictor</span></h1>
+        <p class="subtitle">Play through four tests — we'll analyze your performance automatically</p>
+      </header>
+
+      <div class="card start-card">
+        <div class="test-overview">
+          <div class="test-item">
+            <span class="test-icon">⚡</span>
+            <div>
+              <p class="test-name">Reaction Test</p>
+              <p class="test-desc">Click when the screen flashes — 5 rounds</p>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="test-item">
+            <span class="test-icon">🎯</span>
+            <div>
+              <p class="test-name">Accuracy Test</p>
+              <p class="test-desc">Hit targets before they vanish — 15 targets</p>
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="test-item">
+            <span class="test-icon">🔥</span>
+            <div>
+              <p class="test-name">Pressure Mode</p>
+              <p class="test-desc">Same tests, faster pace — see how you hold up</p>
+            </div>
+          </div>
+        </div>
+        <button class="btn-primary" id="btnStart">Start Test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 2: Reaction Test ── -->
+  <div class="screen" id="screenReaction">
+    <div class="wrapper">
+      <div class="stage-bar">
+        <div class="stage-step active"><span>1</span><p>Reaction</p></div>
+        <div class="stage-line"></div>
+        <div class="stage-step"><span>2</span><p>Accuracy</p></div>
+        <div class="stage-line"></div>
+        <div class="stage-step"><span>3</span><p>Pressure</p></div>
+        <div class="stage-line"></div>
+        <div class="stage-step"><span>4</span><p>Results</p></div>
+      </div>
+
+      <div class="reaction-arena" id="reactionArena">
+        <div class="reaction-inner">
+          <p class="reaction-label" id="reactionLabel">Get Ready...</p>
+          <p class="reaction-sub" id="reactionSub">Click anywhere when the screen flashes green</p>
+          <div class="round-dots" id="roundDots"></div>
+        </div>
+      </div>
+
+      <div class="live-stats">
+        <div class="live-stat">
+          <span class="ls-label">Round</span>
+          <span class="ls-val" id="liveRound">0 / 5</span>
+        </div>
+        <div class="live-stat">
+          <span class="ls-label">Last</span>
+          <span class="ls-val" id="liveLast">—</span>
+        </div>
+        <div class="live-stat">
+          <span class="ls-label">Best</span>
+          <span class="ls-val" id="liveBest">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 3: Accuracy Test ── -->
+  <div class="screen" id="screenAccuracy">
+    <div class="wrapper">
+      <div class="stage-bar">
+        <div class="stage-step done"><span>✓</span><p>Reaction</p></div>
+        <div class="stage-line filled"></div>
+        <div class="stage-step active"><span>2</span><p>Accuracy</p></div>
+        <div class="stage-line"></div>
+        <div class="stage-step"><span>3</span><p>Pressure</p></div>
+        <div class="stage-line"></div>
+        <div class="stage-step"><span>4</span><p>Results</p></div>
+      </div>
+
+      <div class="acc-header">
+        <p class="acc-instruction" id="accInstruction">Click the targets before they disappear!</p>
+        <div class="acc-counters">
+          <span class="hit-count" id="hitCount">Hits: 0</span>
+          <span class="miss-count" id="missCount">Missed: 0</span>
+          <span class="target-count" id="targetCount">0 / 15</span>
+        </div>
+      </div>
+
+      <div class="accuracy-arena" id="accuracyArena"></div>
+
+      <div class="acc-progress-wrap">
+        <div class="acc-progress-bar" id="accProgressBar"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 4: Pressure Mode ── -->
+  <div class="screen" id="screenPressure">
+    <div class="wrapper">
+      <div class="stage-bar">
+        <div class="stage-step done"><span>✓</span><p>Reaction</p></div>
+        <div class="stage-line filled"></div>
+        <div class="stage-step done"><span>✓</span><p>Accuracy</p></div>
+        <div class="stage-line filled"></div>
+        <div class="stage-step active"><span>3</span><p>Pressure</p></div>
+        <div class="stage-line"></div>
+        <div class="stage-step"><span>4</span><p>Results</p></div>
+      </div>
+
+      <div class="pressure-banner">
+        <span class="pressure-icon">🔥</span>
+        <div>
+          <p class="pressure-title">Pressure Mode</p>
+          <p class="pressure-sub">Faster targets, less time — stay focused</p>
+        </div>
+      </div>
+
+      <div class="reaction-arena" id="pressureArena">
+        <div class="reaction-inner">
+          <p class="reaction-label" id="pressureLabel">Get Ready...</p>
+          <p class="reaction-sub"></p>
+          <div class="round-dots" id="pressureDots"></div>
+        </div>
+      </div>
+
+      <div class="live-stats">
+        <div class="live-stat">
+          <span class="ls-label">Round</span>
+          <span class="ls-val" id="pressureRound">0 / 5</span>
+        </div>
+        <div class="live-stat">
+          <span class="ls-label">Last</span>
+          <span class="ls-val" id="pressureLast">—</span>
+        </div>
+        <div class="live-stat">
+          <span class="ls-label">Best</span>
+          <span class="ls-val" id="pressureBest">—</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SCREEN 5: Results ── -->
+  <div class="screen" id="screenResult">
+    <div class="wrapper">
+      <div class="stage-bar">
+        <div class="stage-step done"><span>✓</span><p>Reaction</p></div>
+        <div class="stage-line filled"></div>
+        <div class="stage-step done"><span>✓</span><p>Accuracy</p></div>
+        <div class="stage-line filled"></div>
+        <div class="stage-step done"><span>✓</span><p>Pressure</p></div>
+        <div class="stage-line filled"></div>
+        <div class="stage-step active"><span>4</span><p>Results</p></div>
+      </div>
+
+      <div class="result-card" id="resultCard">
+
+        <!-- Skill + Score -->
+        <div class="result-header">
+          <div class="skill-badge" id="skillBadge">—</div>
+          <p class="result-message" id="resultMessage"></p>
+        </div>
+
+        <div class="score-section">
+          <div class="score-label">
+            <span>Skill Score</span>
+            <span class="score-value" id="scoreValue">0</span>
+          </div>
+          <div class="progress-track">
+            <div class="progress-fill" id="progressFill"></div>
+          </div>
+        </div>
+
+        <!-- Measured stats -->
+        <div class="measured-grid">
+          <div class="measured-item">
+            <span class="mi-icon">⚡</span>
+            <span class="mi-label">Avg Reaction</span>
+            <span class="mi-val" id="measuredRT">—</span>
+          </div>
+          <div class="measured-item">
+            <span class="mi-icon">🎯</span>
+            <span class="mi-label">Accuracy</span>
+            <span class="mi-val" id="measuredAcc">—</span>
+          </div>
+          <div class="measured-item">
+            <span class="mi-icon">❌</span>
+            <span class="mi-label">Misses</span>
+            <span class="mi-val" id="measuredMis">—</span>
+          </div>
+          <div class="measured-item">
+            <span class="mi-icon">⏱</span>
+            <span class="mi-label">Session</span>
+            <span class="mi-val" id="measuredTime">—</span>
+          </div>
+        </div>
+
+        <!-- Playstyle -->
+        <div class="section-block">
+          <p class="section-title">🕹️ Playstyle</p>
+          <div class="playstyle-row">
+            <span class="playstyle-badge" id="playstyleBadge">—</span>
+            <p class="playstyle-desc" id="playstyleDesc"></p>
+          </div>
+        </div>
+
+        <!-- Radar Chart -->
+        <div class="section-block">
+          <p class="section-title">📊 Performance Radar</p>
+          <div class="radar-wrap">
+            <canvas id="radarCanvas" width="260" height="260"></canvas>
+            <div class="radar-labels" id="radarLabels"></div>
+          </div>
+        </div>
+
+        <!-- Warmup Trend -->
+        <div class="section-block">
+          <p class="section-title">📈 Warmup Trend</p>
+          <div class="trend-box" id="trendBox">
+            <canvas id="trendCanvas" width="100%" height="70"></canvas>
+            <p class="trend-msg" id="trendMsg"></p>
+          </div>
+        </div>
+
+        <!-- Pressure Comparison -->
+        <div class="section-block">
+          <p class="section-title">🔥 Pressure Analysis</p>
+          <div class="pressure-compare" id="pressureCompare"></div>
+        </div>
+
+        <!-- Weakness + Recommendations -->
+        <div class="section-block">
+          <p class="section-title">🔍 Weakness Detector</p>
+          <div class="weakness-box" id="weaknessBox"></div>
+        </div>
+
+        <div class="section-block">
+          <p class="section-title">💡 Recommendations</p>
+          <div class="reco-list" id="recoList"></div>
+        </div>
+
+        <!-- Leaderboard -->
+        <div class="section-block">
+          <p class="section-title">🏆 Leaderboard <span class="lb-note">(this device)</span></p>
+          <div class="leaderboard" id="leaderboard"></div>
+        </div>
+
+        <button class="btn-secondary" id="btnRetry">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/script.js"></script>
+</body>
+</html>
